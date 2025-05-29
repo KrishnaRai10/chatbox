@@ -25,6 +25,9 @@
 
     <div class="rooms-section">
         <h2>Channels</h2>
+        <button mat-raised-button color="primary" (click)="openAddChannelDialog()">
+            + Create Channel
+        </button>
         <ul class="room-list">
             <li *ngFor="let room of rooms" class="room-item" [class.active]="room.id === activeRoomId"
                 (click)="roomSelected.emit(room.id)">

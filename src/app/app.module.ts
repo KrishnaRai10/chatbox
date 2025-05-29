@@ -10,6 +10,12 @@ import { MessageListComponent } from './components/message-list/message-list.com
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { AuthModule } from './auth/auth.module';
+import { ChannelDialogComponent } from './components/channel-dialog/channel-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,13 +25,20 @@ import { ChatComponent } from './pages/chat/chat.component';
     MessageListComponent,
     SidebarComponent,
     UserListComponent,
-    ChatComponent
+    ChatComponent,
+    ChannelDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+
   ],
   providers: [
     provideClientHydration()

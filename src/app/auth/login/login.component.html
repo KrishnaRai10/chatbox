@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Chat Box</h3>
+        <div class="mb-3">
+            <input [(ngModel)]="username" class="form-control" placeholder="Enter Username" (keyup.enter)="login()"
+                aria-label="Username" />
+        </div>
+        <div class="mb-3">
+            <input [(ngModel)]="email" class="form-control" placeholder="Enter Email" aria-label="Email" />
+        </div>
+        <div class="mb-3 position-relative">
+            <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" class="form-control"
+                placeholder="Enter Password" aria-label="Password" />
+            <button type="button" (click)="togglePassword()"
+                class="btn btn-outline-secondary position-absolute end-0 top-0 " style="z-index: 1">
+                {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+        </div>
+
+        <button (click)="login()" class="btn btn-primary w-100">Join Chat</button>
+    </div>
+</div>

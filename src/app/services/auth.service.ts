@@ -21,11 +21,11 @@ export class AuthService {
     }
 
 
-    login(email: string, password: string): Observable<User> {
+    login(email: string, password: string, username: string): Observable<User> {
         // For demo purposes, simulating a login response
         const mockUser: User = {
             id: '1',
-            name: 'Demo User',
+            name: username,
             email: email,
             avatar: 'https://i.pravatar.cc/150?u=' + email,
             status: 'online'
