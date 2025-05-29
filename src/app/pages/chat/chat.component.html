@@ -1,0 +1,36 @@
+<div class="chat-container">
+    <!-- Sidebar -->
+    <app-sidebar [rooms]="chatRooms" [activeRoomId]="activeRoomId" [currentUser]="currentUser"
+        (roomSelected)="selectRoom($event)" (logout)="logout()" [isMobileOpen]="isMobileSidebarOpen"
+        (toggleMobile)="toggleMobileSidebar()"></app-sidebar>
+
+    <!-- Main chat area -->
+    <main class="chat-main">
+        <!-- Chat header -->
+        <header class="chat-header">
+            <button class="mobile-sidebar-toggle" (click)="toggleMobileSidebar()">
+                <span class="sr-only">Menu</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="room-info">
+                <h2>{{ activeRoomName }}</h2>
+                <span class="online-count">{{ onlineUsers.length }} online</span>
+            </div>
+        </header>
+
+        <!-- Messages area -->
+        <app-message-list [messages]="messages" [currentUserId]="currentUser?.id || ''"></app-message-list>
+
+        <!-- Message input -->
+        <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
+    </main>
+
+    <!-- Users sidebar -->
+    <app-user-list [users]="users" [isOpen]="isUserListOpen" (close)="toggleUserList()"></app-user-list>
+</div>

@@ -1,0 +1,14 @@
+<div class="message-item" [ngClass]="{'own-message': isOwnMessage, 'other-message': !isOwnMessage}">
+    <div class="message-avatar" *ngIf="!isOwnMessage">
+        <img [src]="message.senderAvatar" [alt]="message.senderName" class="avatar" />
+    </div>
+    <div class="message-content">
+        <div class="message-header">
+            <span class="sender-name" *ngIf="!isOwnMessage">{{ message.senderName }}</span>
+            <span class="message-time">{{ formatMessageTime(message.timestamp) }}</span>
+        </div>
+        <div class="message-bubble">
+            {{ message.content }}
+        </div>
+    </div>
+</div>

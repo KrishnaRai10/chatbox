@@ -1,0 +1,38 @@
+.message-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-4);
+
+    .message-list-content {
+        max-width: 800px;
+        margin: 0 auto;
+
+        .message-list-empty {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .empty-state {
+                text-align: center;
+                padding: var(--space-8);
+                color: var(--gray-500);
+
+                svg {
+                    margin-bottom: var(--space-4);
+                    color: var(--gray-400);
+                }
+
+                h3 {
+                    font-size: 1.25rem;
+                    margin-bottom: var(--space-2);
+                    color: var(--gray-700);
+                }
+
+                p {
+                    font-size: 0.875rem;
+                }
+            }
+        }
+    }
+}

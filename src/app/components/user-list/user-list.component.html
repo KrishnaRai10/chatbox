@@ -1,0 +1,59 @@
+<aside class="user-list" [class.user-list-open]="isOpen">
+    <div class="user-list-header">
+        <h2>Online Users</h2>
+        <button class="close-button" (click)="close.emit()" aria-label="Close user list">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="user-list-content">
+        <div class="user-group">
+            <h3>Online</h3>
+            <ul class="users">
+                <li *ngFor="let user of onlineUsers" class="user-item">
+                    <div class="user-avatar">
+                        <img [src]="user.avatar" [alt]="user.name" />
+                        <span class="status-dot online"></span>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="user-group" *ngIf="awayUsers.length > 0">
+            <h3>Away</h3>
+            <ul class="users">
+                <li *ngFor="let user of awayUsers" class="user-item">
+                    <div class="user-avatar">
+                        <img [src]="user.avatar" [alt]="user.name" />
+                        <span class="status-dot away"></span>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="user-group" *ngIf="offlineUsers.length > 0">
+            <h3>Offline</h3>
+            <ul class="users">
+                <li *ngFor="let user of offlineUsers" class="user-item">
+                    <div class="user-avatar">
+                        <img [src]="user.avatar" [alt]="user.name" />
+                        <span class="status-dot offline"></span>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
