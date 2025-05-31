@@ -17,5 +17,7 @@ export class ChannelDialogComponent {
       this.dialogRef.close(this.channelName.trim());
     }
   }
-
+  closeDialog() {
+    this.dialogRef.close(); // <--- This closes the dialog
+  }
 }

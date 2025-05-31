@@ -92,7 +92,52 @@ export class ChatService {
                 senderAvatar: 'https://i.pravatar.cc/150?u=maya',
                 content: 'Wow, that sounds like what we\'re using right now! 😄',
                 timestamp: new Date(Date.now() - 900000).toISOString(),
-            }
+            },
+            {
+                id: '6',
+                roomId: 'random',
+                senderId: '2',
+                senderName: 'Maya Rodriguez',
+                senderAvatar: 'https://i.pravatar.cc/150?u=maya',
+                content: 'Wow, that sounds like what we\'re using right now! 😄',
+                timestamp: new Date(Date.now() - 900000).toISOString(),
+            },
+            {
+                id: '7',
+                roomId: 'random',
+                senderId: '2',
+                senderName: 'Maya Rodriguez',
+                senderAvatar: 'https://i.pravatar.cc/150?u=maya',
+                content: 'Wow, that sounds like what we\'re using right now! 😄',
+                timestamp: new Date(Date.now() - 900000).toISOString(),
+            },
+            {
+                id: '8',
+                roomId: 'general',
+                senderId: '2',
+                senderName: 'Maya Rodriguez',
+                senderAvatar: 'https://i.pravatar.cc/150?u=maya',
+                content: 'Wow, that sounds like what we\'re using right now! 😄',
+                timestamp: new Date(Date.now() - 900000).toISOString(),
+            },
+            {
+                id: '9',
+                roomId: 'general',
+                senderId: '2',
+                senderName: 'Maya Rodriguez',
+                senderAvatar: 'https://i.pravatar.cc/150?u=maya',
+                content: 'Wow, that sounds like what we\'re using right now! 😄',
+                timestamp: new Date(Date.now() - 900000).toISOString(),
+            },
+            {
+                id: '9',
+                roomId: 'general',
+                senderId: '2',
+                senderName: 'Maya Rodriguez',
+                senderAvatar: 'https://i.pravatar.cc/150?u=maya',
+                content: 'Wow, that sounds like what we\'re using right now! 😄',
+                timestamp: new Date(Date.now() - 900000).toISOString(),
+            },
         ];
         this.messagesSubject.next(mockMessages);
     }

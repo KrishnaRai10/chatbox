@@ -8,14 +8,8 @@
     <main class="chat-main">
         <!-- Chat header -->
         <header class="chat-header">
-            <button class="mobile-sidebar-toggle" (click)="toggleMobileSidebar()">
+            <button class="mobile-sidebar-toggle fa-solid fa-bars" (click)="toggleMobileSidebar()">
                 <span class="sr-only">Menu</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
             </button>
 
             <div class="room-info">
@@ -24,11 +18,14 @@
             </div>
         </header>
 
-        <!-- Messages area -->
-        <app-message-list [messages]="messages" [currentUserId]="currentUser?.id || ''"></app-message-list>
+        <div class="chat-section">
+            <!-- Messages area -->
+            <app-message-list [messages]="messages" [currentUserId]="currentUser?.id || ''"></app-message-list>
 
-        <!-- Message input -->
-        <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
+            <!-- Message input -->
+            <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
+        </div>
+
     </main>
 
     <!-- Users sidebar -->

@@ -28,10 +28,9 @@ export class SidebarComponent implements OnInit {
   }
   openAddChannelDialog() {
     const dialogRef = this.dialog.open(ChannelDialogComponent, {
+      disableClose: false,
       // You can also pass data or other config options here
     });
-
-
     dialogRef.afterClosed().subscribe((channelName: string) => {
       if (channelName) {
         const newRoom = {

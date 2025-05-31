@@ -39,6 +39,15 @@
             cursor: pointer;
             transition: background-color 0.2s;
 
+            .send-icon {
+                width: 24px;
+                /* or any size you want */
+                height: 24px;
+                fill: currentColor;
+                /* Optional: inherit button color */
+            }
+
+
             &.disabled {
                 background-color: var(--gray-400);
                 cursor: not-allowed;

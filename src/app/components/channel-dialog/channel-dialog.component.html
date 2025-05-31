@@ -6,6 +6,6 @@
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
     <button mat-button color="primary" (click)="addChannel()" [disabled]="!channelName">Add</button>
 </mat-dialog-actions>

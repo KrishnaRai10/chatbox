@@ -8,8 +8,27 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: var(--gray-50);
+
+    .chat-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        app-message-input {
+            position: sticky;
+            bottom: 0px;
+        }
+
+        app-message-list {
+            height: 100%;
+        }
+    }
+
+
+
+
 }
 
 .chat-header {
@@ -19,6 +38,8 @@
     background-color: white;
     border-bottom: 1px solid var(--gray-200);
     z-index: 10;
+    position: sticky;
+    top: 0px;
 }
 
 .mobile-sidebar-toggle {
