@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-channel-dialog',
+  standalone: false,
   templateUrl: './channel-dialog.component.html',
   styleUrl: './channel-dialog.component.scss'
 })
@@ -16,4 +17,5 @@ export class ChannelDialogComponent {
       this.dialogRef.close(this.channelName.trim());
     }
   }
+
 }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
+  standalone: false,
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })

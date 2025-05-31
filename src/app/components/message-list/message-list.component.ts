@@ -3,6 +3,7 @@ import { Message } from '../../models/message.model';
 
 @Component({
   selector: 'app-message-list',
+  standalone: false,
   templateUrl: './message-list.component.html',
   styleUrl: './message-list.component.scss'
 })

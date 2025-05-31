@@ -82,6 +82,27 @@
     box-sizing: border-box;
 }
 
+app-root {
+    display: block;
+    height: 100%;
+}
+
+.cdk-overlay-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // pointer-events: none;
+    z-index: 1000;
+}
+
+.mat-mdc-form-field {
+    input {
+        height: 50px !important;
+    }
+}
+
 html,
 body {
     height: 100%;

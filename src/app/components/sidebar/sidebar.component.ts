@@ -3,10 +3,13 @@ import { ChatRoom } from '../../models/chat-room.model';
 import { User } from '../../models/user.model';
 import { channel } from 'diagnostics_channel';
 import { ChannelDialogComponent } from '../channel-dialog/channel-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MatDialog, MatDialogRef
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar',
+  standalone: false,
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -24,7 +27,10 @@ export class SidebarComponent implements OnInit {
     console.log(this.currentUser)
   }
   openAddChannelDialog() {
-    const dialogRef = this.dialog.open(ChannelDialogComponent);
+    const dialogRef = this.dialog.open(ChannelDialogComponent, {
+      // You can also pass data or other config options here
+    });
+
 
     dialogRef.afterClosed().subscribe((channelName: string) => {
       if (channelName) {

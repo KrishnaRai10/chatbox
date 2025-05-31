@@ -197,6 +197,13 @@
     }
 }
 
+::ng-deep .cdk-overlay-container,
+::ng-deep .cdk-overlay-pane {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
 // Responsive styles
 @media (max-width: 767px) {
     .sidebar {

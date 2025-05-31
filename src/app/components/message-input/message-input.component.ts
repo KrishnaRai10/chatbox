@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-message-input',
+  standalone: false,
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.scss'
 })

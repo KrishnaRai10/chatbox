@@ -3,6 +3,7 @@ import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-list',
+  standalone: false,
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
