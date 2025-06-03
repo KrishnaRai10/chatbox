@@ -5,6 +5,7 @@ import { Message } from '../models/message.model';
 import { ChatRoom } from '../models/chat-room.model';
 import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class ChatService {
     private usersSubject = new BehaviorSubject<User[]>([]);
     public users$ = this.usersSubject.asObservable();
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private http: HttpClient) {
         // Initialize with mock data
         this.initializeMockData();
     }
@@ -186,5 +187,8 @@ export class ChatService {
 
     getActiveRoom(): string {
         return this.activeRoomSubject.value;
+    }
+    typing(roomId: string): Observable<any> {
+        return this.http.post('/api/typing', roomId);
     }
 }

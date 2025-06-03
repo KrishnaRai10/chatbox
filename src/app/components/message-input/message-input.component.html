@@ -1,9 +1,14 @@
 <div class="message-input-container">
-    <form class="message-form" (ngSubmit)="sendMessage()">
-        <input type="text" class="message-input" placeholder="Type your message here..." [(ngModel)]="messageText"
-            name="messageText" autocomplete="off" />
-        <button type="submit" class="send-button fa-solid fa-paper-plane" [disabled]="!messageText.trim()"
+    <form class="message-form">
+        <div class="input">
+            <input type="text" class="message-input" (input)="onInputChange()" placeholder="Type your message here..."
+                [(ngModel)]="messageText" name="messageText" autocomplete="off" />
+            <button type="button" class="emoji-input fa-regular fa-face-smile" (click)="openEmojiDialog()"></button>
+        </div>
+        <button (click)="sendMessage()" class="send-button fa-solid fa-paper-plane" [disabled]="!messageText.trim()"
             [class.disabled]="!messageText.trim()">
         </button>
+
     </form>
+
 </div>

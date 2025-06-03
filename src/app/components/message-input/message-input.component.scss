@@ -7,20 +7,32 @@
         display: flex;
         position: relative;
 
-        .message-input {
-            flex: 1;
-            padding: var(--space-3) var(--space-4);
-            padding-right: var(--space-12);
-            border-radius: 1.5rem;
-            border: 1px solid var(--gray-300);
-            font-size: 0.95rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+        .input {
+            display: flex;
+            width: 100%;
+            align-items: center;
 
-            &:focus {
-                border-color: var(--primary-400);
-                box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            .emoji-input {
+                position: absolute;
+                right: 70px;
+            }
+
+            .message-input {
+                flex: 1;
+                padding: var(--space-3) var(--space-4);
+                padding-right: var(--space-12);
+                border-radius: 1.5rem;
+                border: 1px solid var(--gray-300);
+                font-size: 0.95rem;
+                transition: border-color 0.2s, box-shadow 0.2s;
+
+                &:focus {
+                    border-color: var(--primary-400);
+                    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+                }
             }
         }
+
 
         .send-button {
             position: absolute;
@@ -58,4 +70,12 @@
             }
         }
     }
+}
+
+::ng-deep .mat-mdc-dialog-panel {
+    height: 200px !important;
+    width: 350px !important;
+    position: absolute !important;
+    bottom: 16% !important;
+    right: 20% !important;
 }

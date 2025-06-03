@@ -6,14 +6,41 @@
     &.own-message {
         justify-content: flex-end;
 
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
         .message-header {
             justify-content: flex-end;
         }
 
         .message-bubble {
+            width: fit-content;
             background-color: var(--primary-100);
             color: var(--gray-900);
             border: 1px solid var(--primary-200);
+
+            &.angry {
+                background-color: #ff4d4d !important; // Red
+                color: white !important;
+            }
+
+            &.happy {
+                background-color: #4caf50 !important; // Green
+                color: white !important;
+            }
+
+            &.sad {
+                background-color: #2196f3 !important; // Blue
+                color: white !important;
+            }
+
+            &.surprised {
+                background-color: #ff9800 !important; // Orange
+                color: white !important;
+            }
         }
     }
 

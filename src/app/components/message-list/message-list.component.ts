@@ -10,23 +10,6 @@ import { Message } from '../../models/message.model';
 export class MessageListComponent {
   @Input() messages: Message[] = [];
   @Input() currentUserId: string = '';
-  @ViewChild('messageContainer') private messageContainer!: ElementRef;
-  private shouldScrollToBottom = true;
-
-  ngAfterViewChecked(): void {
-    if (this.shouldScrollToBottom) {
-      this.scrollToBottom();
-    }
-  }
-
-  scrollToBottom(): void {
-    try {
-      this.messageContainer.nativeElement.scrollTop =
-        this.messageContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Error scrolling to bottom:', err);
-    }
-  }
 
   trackByMessageId(index: number, message: Message): string {
     return message.id;

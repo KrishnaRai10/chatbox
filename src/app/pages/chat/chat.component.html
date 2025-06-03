@@ -5,7 +5,7 @@
         (toggleMobile)="toggleMobileSidebar()"></app-sidebar>
 
     <!-- Main chat area -->
-    <main class="chat-main">
+    <main class="chat-main" #messageContainer>
         <!-- Chat header -->
         <header class="chat-header">
             <button class="mobile-sidebar-toggle fa-solid fa-bars" (click)="toggleMobileSidebar()">
@@ -23,7 +23,7 @@
             <app-message-list [messages]="messages" [currentUserId]="currentUser?.id || ''"></app-message-list>
 
             <!-- Message input -->
-            <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
+            <app-message-input (messageSent)="sendMessage($event)" (userTyping)="handleTyping()"></app-message-input>
         </div>
 
     </main>

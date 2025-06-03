@@ -7,19 +7,19 @@
     border-left: 1px solid var(--gray-200);
     overflow-y: auto;
 
-    // @media (max-width: 1023px) {
-    //     position: fixed;
-    //     right: -250px;
-    //     top: 0;
-    //     bottom: 0;
-    //     z-index: 40;
-    //     transition: right 0.3s ease-in-out;
+    @media (max-width: 1023px) {
+        position: fixed;
+        right: -250px;
+        top: 0;
+        bottom: 0;
+        z-index: 40;
+        transition: right 0.3s ease-in-out;
 
-    //     &.user-list-open {
-    //         right: 0;
-    //         box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
-    //     }
-    // }
+        &.user-list-open {
+            right: 0;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+    }
 
     .user-list-header {
         display: flex;

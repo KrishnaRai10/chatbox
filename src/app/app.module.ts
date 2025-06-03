@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,8 +19,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ToastrModule } from 'ngx-toastr';
+import { EmojiDialogComponent } from './components/emoji-dialog/emoji-dialog.component';
+
 
 @NgModule({
+
   declarations: [
     AppComponent,
     MessageInputComponent,
@@ -30,7 +34,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     UserListComponent,
     ChatComponent,
     ChannelDialogComponent,
-    LoaderComponent
+    LoaderComponent,
+    EmojiDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,12 +48,17 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync()
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

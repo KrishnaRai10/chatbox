@@ -7,7 +7,7 @@
             <span class="sender-name" *ngIf="!isOwnMessage">{{ message.senderName }}</span>
             <span class="message-time">{{ formatMessageTime(message.timestamp) }}</span>
         </div>
-        <div class="message-bubble">
+        <div class="message-bubble" [ngClass]="getEmotionClass(message.content)">
             {{ message.content }}
         </div>
     </div>

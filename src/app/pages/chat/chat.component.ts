@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { User } from '../../models/user.model';
 import { Message } from '../../models/message.model';
 import { ChatRoom } from '../../models/chat-room.model';
 import { AuthService } from '../../services/auth.service';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { EchoService } from '../../services/echo.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,10 +24,15 @@ export class ChatComponent {
   isMobileSidebarOpen: boolean = false;
   isUserListOpen: boolean = true;
 
+  typingUser: string | null = null;
+  roomId: string = '417dce77-31af-4057-96dc-22c8c186f1c7';
+  @ViewChild('messageContainer') private messageContainer!: ElementRef;
   constructor(
     private chatService: ChatService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService,
+    private echoService: EchoService
   ) { }
 
   ngOnInit(): void {
@@ -55,10 +62,35 @@ export class ChatComponent {
 
     // Initial load of messages
     this.loadMessages(this.activeRoomId);
+
+    // this.echoService.echo.channel(`chat.room.${this.roomId}`)
+    //   .listen('.user.typing', (e: any) => {
+    //     this.typingUser = e.username || 'Someone';
+    //     setTimeout(() => this.typingUser = null, 2000); // Reset after 2 sec
+    //   });
+  }
+  handleTyping() {
+    this.chatService.typing(this.activeRoomId).subscribe({
+      next: () => {
+        // Optionally handle successful typing event
+      },
+      error: (error) => {
+        console.error('Failed to send typing event:', error);
+      }
+    })
   }
 
+
   ngAfterViewChecked(): void {
-    // Implementation if needed for scrolling to bottom of messages
+    this.scrollToBottom()// Implementation if needed for scrolling to bottom of messages
+  }
+  scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop =
+        this.messageContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Error scrolling to bottom:', err);
+    }
   }
 
   get onlineUsers(): User[] {
@@ -85,7 +117,7 @@ export class ChatComponent {
 
     this.chatService.sendMessage(content, this.activeRoomId).subscribe({
       next: (message) => {
-        // Message successfully sent and added to the messages array via the subscription
+        this.messages.push(message);
       },
       error: (error) => {
         console.error('Failed to send message:', error);

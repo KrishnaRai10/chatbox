@@ -6,6 +6,7 @@ import { ChannelDialogComponent } from '../channel-dialog/channel-dialog.compone
 import {
   MatDialog, MatDialogRef
 } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +15,7 @@ import {
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit {
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private toastr: ToastrService) { }
   @Input() rooms: ChatRoom[] = [];
   @Input() activeRoomId: string = '';
   @Input() currentUser: User | null = null;
@@ -24,7 +25,6 @@ export class SidebarComponent implements OnInit {
   @Output() logout = new EventEmitter<void>();
   @Output() toggleMobile = new EventEmitter<void>();
   ngOnInit(): void {
-    console.log(this.currentUser)
   }
   openAddChannelDialog() {
     const dialogRef = this.dialog.open(ChannelDialogComponent, {
@@ -39,6 +39,7 @@ export class SidebarComponent implements OnInit {
           unreadCount: 0,
         };
         this.rooms.push(newRoom);
+        this.toastr.success("Channel created successfully");
       }
     });
   }
