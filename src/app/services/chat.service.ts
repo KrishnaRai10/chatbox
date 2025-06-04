@@ -40,10 +40,10 @@ export class ChatService {
 
         // Mock users
         const mockUsers: User[] = [
-            { id: '1', name: 'Alex Johnson', email: 'alex@example.com', status: 'online', avatar: 'https://i.pravatar.cc/150?u=alex' },
-            { id: '2', name: 'Maya Rodriguez', email: 'maya@example.com', status: 'away', avatar: 'https://i.pravatar.cc/150?u=maya' },
-            { id: '3', name: 'Sam Taylor', email: 'sam@example.com', status: 'offline', avatar: 'https://i.pravatar.cc/150?u=sam' },
-            { id: '4', name: 'Jordan Lee', email: 'jordan@example.com', status: 'online', avatar: 'https://i.pravatar.cc/150?u=jordan' }
+            { id: '1', name: 'Alex Johnson', username: 'asjdbhf', email: 'alex@example.com', status: 'online', avatar: 'https://i.pravatar.cc/150?u=alex' },
+            { id: '2', name: 'Maya Rodriguez', username: 'aouiwehru', email: 'maya@example.com', status: 'away', avatar: 'https://i.pravatar.cc/150?u=maya' },
+            { id: '3', name: 'Sam Taylor', email: 'sam@example.com', username: 'aksjboiwe', status: 'offline', avatar: 'https://i.pravatar.cc/150?u=sam' },
+            { id: '4', name: 'Jordan Lee', email: 'jordan@example.com', username: 'ajshdfbzxcv', status: 'online', avatar: 'https://i.pravatar.cc/150?u=jordan' }
         ];
         this.usersSubject.next(mockUsers);
 

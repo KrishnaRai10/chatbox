@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { noAuthGuard } from './noAuth.guard';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: '',
+    redirectTo: 'register',
+    pathMatch: 'full'
   },
-  //  {
-  //     path: 'login',
-  //   loadChildren: () => import('./login/login.component').then(m => m.LoginComponent)
-  //  }
+  {
+    path: 'register',
+    component: SignupComponent,
+    canActivate: [noAuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [noAuthGuard]
+  },
+
 ];
 
 @NgModule({

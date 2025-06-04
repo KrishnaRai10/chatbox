@@ -21,6 +21,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LoaderComponent } from './components/loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
 import { EmojiDialogComponent } from './components/emoji-dialog/emoji-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { EmojiDialogComponent } from './components/emoji-dialog/emoji-dialog.com
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',

@@ -7,18 +7,18 @@ import { io } from 'socket.io-client';
     providedIn: 'root'
 })
 export class EchoService {
-    public echo: Echo<any>;
+    // public echo: Echo<any>;
 
-    constructor() {
-        this.echo = new Echo({
-            broadcaster: 'socket.io',
-            host: 'http://localhost:8080', // Adjust port if different
-            client: io,
-            // auth: {
-            //     headers: {
-            //         Authorization: `Bearer ${localStorage.getItem('token')}`
-            //     }
-            // }
-        });
-    }
+    // constructor() {
+    //     this.echo = new Echo({
+    //         broadcaster: 'socket.io',
+    //         host: 'http://localhost:8080', // Adjust port if different
+    //         client: io,
+    //         auth: {
+    //             headers: {
+    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('ChatUser') || '{}').auth || ''}`
+    //             }
+    //         }
+    //     });
+    // }
 }

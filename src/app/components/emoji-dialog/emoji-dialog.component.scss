@@ -1,3 +1,10 @@
 emoji-picker {
     width: 100%;
 }
+
+::ng-deep .emoji-dialog {
+    width: 350px !important;
+    position: absolute !important;
+    bottom: 16% !important;
+    right: 20% !important;
+}

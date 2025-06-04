@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmojiDialogComponent } from '../emoji-dialog/emoji-dialog.component';
 
@@ -7,7 +7,7 @@ import { EmojiDialogComponent } from '../emoji-dialog/emoji-dialog.component';
   selector: 'app-message-input',
   standalone: false,
   templateUrl: './message-input.component.html',
-  styleUrl: './message-input.component.scss'
+  styleUrl: './message-input.component.scss',
 })
 export class MessageInputComponent {
   @Output() messageSent = new EventEmitter<string>();
@@ -28,6 +28,7 @@ export class MessageInputComponent {
   openEmojiDialog() {
     const dialogRef = this.dialogRef.open(EmojiDialogComponent, {
       width: '400px',
+      panelClass: 'emoji-dialog',
       data: {
         onEmojiSelect: (emoji: string) => {
           this.messageText += emoji;

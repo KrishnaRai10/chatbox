@@ -23,7 +23,8 @@
             <app-message-list [messages]="messages" [currentUserId]="currentUser?.id || ''"></app-message-list>
 
             <!-- Message input -->
-            <app-message-input (messageSent)="sendMessage($event)" (userTyping)="handleTyping()"></app-message-input>
+            <!-- <app-message-input (messageSent)="sendMessage($event)" (userTyping)="handleTyping()"></app-message-input> -->
+            <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
         </div>
 
     </main>

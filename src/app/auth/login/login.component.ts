@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { MainService } from '../../services/main.services';
 
 @Component({
   selector: 'app-login',
@@ -9,28 +11,32 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  username: string = '';
+  showPassword: boolean = false;
   email: string = '';
   password: string = '';
-  showPassword: boolean = false;
-  constructor(private router: Router, private authService: AuthService) { }
-
+  constructor(private router: Router, private authService: AuthService, private toast: ToastrService, private service: MainService) { }
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
   login(): void {
-    const trimmedUsername = this.username.trim();
+    this.service.handelLoader(true);
     const trimmedEmail = this.email.trim();
     const trimmedPassword = this.password.trim();
 
     // Basic form validation
-    if (!trimmedUsername || !trimmedEmail || !trimmedPassword) {
-      alert('Please fill in all fields.');
+    if (!trimmedEmail || !trimmedPassword) {
+      this.toast.info('Please fill in all fields.');
       return;
     }
-    this.authService.login(trimmedEmail, trimmedPassword, trimmedUsername).subscribe((res) => {
+    let credential = {
+      email: trimmedEmail,
+      password: trimmedPassword,
+    }
+    this.authService.login(credential).subscribe((res) => {
       if (res) {
+        this.toast.success(res.message);
         this.router.navigate(['chat']);
+        this.service.handelLoader(false);
       }
     })
   }

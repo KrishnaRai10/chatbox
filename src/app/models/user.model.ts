@@ -3,5 +3,6 @@ export interface User {
     name: string;
     email: string;
     avatar: string;
+    username: string;
     status: 'online' | 'away' | 'offline';
 }

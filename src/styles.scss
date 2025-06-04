@@ -226,6 +226,14 @@ select:focus {
     animation: pulse 2s infinite;
 }
 
+::ng-deep .emoji-dialog .mat-mdc-dialog-panel {
+    width: 350px !important;
+    position: absolute !important;
+    bottom: 16% !important;
+    right: 20% !important;
+}
+
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -282,5 +290,13 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
