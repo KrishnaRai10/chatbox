@@ -1,11 +1,11 @@
 <div class="message-item" [ngClass]="{'own-message': isOwnMessage, 'other-message': !isOwnMessage}">
     <div class="message-avatar" *ngIf="!isOwnMessage">
-        <img [src]="message.senderAvatar" [alt]="message.senderName" class="avatar" />
+        <img [src]="message.user_profile.avatar" [alt]="message.senderName" class="avatar" />
     </div>
     <div class="message-content">
         <div class="message-header">
-            <span class="sender-name" *ngIf="!isOwnMessage">{{ message.senderName }}</span>
-            <span class="message-time">{{ formatMessageTime(message.timestamp) }}</span>
+            <span class="sender-name" *ngIf="!isOwnMessage">{{ message.display_name }}</span>
+            <span class="message-time">{{ formatMessageTime(message.created_at) }}</span>
         </div>
         <div class="message-bubble" [ngClass]="getEmotionClass(message.content)">
             {{ message.content }}

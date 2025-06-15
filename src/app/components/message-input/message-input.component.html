@@ -4,7 +4,7 @@
             <!-- <input type="text" class="message-input" (input)="onInputChange()" placeholder="Type your message here..."
                 [(ngModel)]="messageText" name="messageText" autocomplete="off" /> -->
             <input type="text" class="message-input" placeholder="Type your message here..." [(ngModel)]="messageText"
-                name="messageText" autocomplete="off" />
+                name="messageText" autocomplete="off" (input)="onInputChange()" />
             <button type="button" class="emoji-input fa-regular fa-face-smile" (click)="openEmojiDialog()"></button>
         </div>
         <button (click)="sendMessage()" class="send-button fa-solid fa-paper-plane" [disabled]="!messageText.trim()"

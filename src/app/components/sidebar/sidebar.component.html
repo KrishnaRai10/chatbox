@@ -25,9 +25,9 @@
         </button>
         <ul class="room-list">
             <li *ngFor="let room of rooms" class="room-item" [class.active]="room.id === activeRoomId"
-                (click)="roomSelected.emit(room.id)">
+                (click)="selectRoom(room.id,room.name)">
                 <div class="room-info">
-                    <span class="room-name"># {{ room.name }}</span>
+                    <span class="room-name"># {{ room.name | capitalize}}</span>
                     <span class="unread-badge" *ngIf="room.unreadCount > 0">{{ room.unreadCount }}</span>
                 </div>
             </li>

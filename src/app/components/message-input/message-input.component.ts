@@ -13,7 +13,7 @@ export class MessageInputComponent {
   @Output() messageSent = new EventEmitter<string>();
   @ViewChild('emojiPicker') emojiPicker!: ElementRef;
   @ViewChild('emojiInput') emojiInput!: ElementRef<HTMLInputElement>;
-  @Output() userTyping = new EventEmitter<void>(); // Emit when typing
+  @Output() userTyping = new EventEmitter<boolean>(); // Emit when typing
   constructor(private dialogRef: MatDialog) { }
   messageText: string = '';
 
@@ -23,7 +23,7 @@ export class MessageInputComponent {
     this.messageText = '';
   }
   onInputChange() {
-    this.userTyping.emit(); // Notify parent user is typing
+    this.userTyping.emit(true); // Notify parent user is typing
   }
   openEmojiDialog() {
     const dialogRef = this.dialogRef.open(EmojiDialogComponent, {

@@ -22,6 +22,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
 import { EmojiDialogComponent } from './components/emoji-dialog/emoji-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CapitalizePipe } from './capitalize.pipe';
+import { TypingComponent } from './components/typing/typing.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { HttpClientModule } from '@angular/common/http';
     ChatComponent,
     ChannelDialogComponent,
     LoaderComponent,
-    EmojiDialogComponent
+    EmojiDialogComponent,
+    CapitalizePipe,
+    TypingComponent
   ],
   imports: [
     BrowserModule,

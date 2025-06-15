@@ -12,12 +12,14 @@ export class MessageItemComponent implements OnInit {
   @Input() isOwnMessage: boolean = true;
 
   formatMessageTime(timestamp: string): string {
+    // const timestamp = new Date(Date.now() - 3600000).toISOString()
     const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   }
   ngOnInit(): void {
   }
   getEmotionClass(message: string): string {
+    if (!message) return 'default-message';
     const lowerMsg = message.toLowerCase();
     if (lowerMsg.includes('angry') || lowerMsg.includes('mad') || lowerMsg.includes('frustrated')) {
       return 'angry';

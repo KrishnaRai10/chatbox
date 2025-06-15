@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EchoService } from '../../services/echo.service';
 
+
 @Component({
   selector: 'app-chat',
   standalone: false,
@@ -19,13 +20,14 @@ export class ChatComponent {
   chatRooms: ChatRoom[] = [];
   users: User[] = [];
   currentUser: User | null = null;
-  activeRoomId: string = 'general';
-  activeRoomName: string = 'General';
+  activeRoomId!: string;
+  activeRoomName!: string;
   isMobileSidebarOpen: boolean = false;
   isUserListOpen: boolean = true;
 
-  typingUser: string | null = null;
-  roomId: string = '417dce77-31af-4057-96dc-22c8c186f1c7';
+  typingUser!: User | null;
+  typingTimeout: any;
+  user = this.authService.getCurrentUser();
   @ViewChild('messageContainer') private messageContainer!: ElementRef;
   constructor(
     private chatService: ChatService,
@@ -35,44 +37,60 @@ export class ChatComponent {
     private echoService: EchoService
   ) { }
 
-  ngOnInit(): void {
-    // Get current user
-    this.currentUser = this.authService.getCurrentUser();
+  async ngOnInit(): Promise<void> {
+    if (this.user && this.user.id) {
+      this.currentUser = { ...this.user };
+    } else {
+      this.currentUser = null;
+    }
+    await this.echoService.echoReady;
 
-    // Subscribe to chat rooms
-    this.chatService.chatRooms$.subscribe(rooms => {
-      this.chatRooms = rooms;
-      // Find active room name
-      const activeRoom = rooms.find(room => room.id === this.activeRoomId);
-      if (activeRoom) {
-        this.activeRoomName = activeRoom.name;
-      }
-    });
-
-    // Subscribe to users
-    this.chatService.users$.subscribe(users => {
-      this.users = users;
-    });
-
-    // Subscribe to active room changes
-    this.chatService.activeRoom$.subscribe(roomId => {
+    // 👇 Real-time message listening
+    // 👇 Subscribe to room changes AFTER echo is ready
+    this.chatService.activeRoomId$.subscribe((roomId) => {
       this.activeRoomId = roomId;
-      this.loadMessages(roomId);
+
+      if (!this.activeRoomId || !this.echoService.echo) return;
+
+      // 👇 Load messages
+      this.loadMessages(this.activeRoomId);
+
+      // 👇 Listen to chat messages
+      this.echoService.listenToChatChannel(this.activeRoomId, (message: Message) => {
+        this.messages.push({
+          user_id: message.user_id,
+          content: message.content,
+          type: message.type,
+          emotion: message.emotion,
+          created_at: message.created_at,
+          user_profile: message.user_profile
+        });
+
+        this.scrollToBottom();
+      });
+
+      // 👇 Listen to typing
+      this.echoService.listenToTyping(this.activeRoomId, (data) => {
+        if (data.userId !== this.user?.id) {
+          this.typingUser = data;
+          console.log(this.typingUser)
+
+          clearTimeout(this.typingTimeout);
+          this.typingTimeout = setTimeout(() => {
+            this.typingUser = null;
+          }, 3000);
+        }
+      });
     });
-
-    // Initial load of messages
-    this.loadMessages(this.activeRoomId);
-
-    // this.echoService.echo.channel(`chat.room.${this.roomId}`)
-    //   .listen('.user.typing', (e: any) => {
-    //     this.typingUser = e.username || 'Someone';
-    //     setTimeout(() => this.typingUser = null, 2000); // Reset after 2 sec
-    //   });
   }
   handleTyping() {
-    this.chatService.typing(this.activeRoomId).subscribe({
+    let payoad = {
+      user_id: this.user?.id,
+      room_id: this.activeRoomId
+    }
+    this.chatService.typing(payoad).subscribe({
       next: () => {
-        // Optionally handle successful typing event
+        // this.userTyping()
       },
       error: (error) => {
         console.error('Failed to send typing event:', error);
@@ -80,9 +98,14 @@ export class ChatComponent {
     })
   }
 
-
   ngAfterViewChecked(): void {
-    this.scrollToBottom()// Implementation if needed for scrolling to bottom of messages
+    // Implementation if needed for scrolling to bottom of messages
+    this.chatService.activeRoom$.subscribe((res) => {
+      // You can handle the emitted value here if needed
+      // For example, update activeRoomId or perform other actions
+      this.activeRoomName = res;
+
+    })
   }
   scrollToBottom(): void {
     try {
@@ -98,14 +121,17 @@ export class ChatComponent {
   }
 
   loadMessages(roomId: string): void {
-    this.chatService.getMessages(roomId).subscribe(messages => {
-      this.messages = messages;
+    this.chatService.getMessages(roomId).subscribe(newMessages => {
+      const message = newMessages.slice().reverse();
+      this.messages.push(...message);
+      setTimeout(() => this.scrollToBottom(), 0);
     });
+
   }
 
   selectRoom(roomId: string): void {
     this.chatService.setActiveRoom(roomId);
-
+    this.activeRoomId = roomId
     // If on mobile, close sidebar after selection
     if (window.innerWidth < 768) {
       this.isMobileSidebarOpen = false;
@@ -114,13 +140,38 @@ export class ChatComponent {
 
   sendMessage(content: string): void {
     if (content.trim() === '') return;
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser?.id && this.activeRoomId) {
+      let payload = {
+        user_id: currentUser.id,
+        room_id: this.activeRoomId,
+        type: 'text',              // You can adjust if it's image, file, etc.
+        message: content,
+        emotion: 0                 // Default emotion, adjust if needed
+      }
 
-    this.chatService.sendMessage(content, this.activeRoomId).subscribe({
-      next: (message) => {
-        this.messages.push(message);
-      },
-      error: (error) => {
-        console.error('Failed to send message:', error);
+      this.chatService.sendMessage(payload).subscribe({
+        next: (message) => {
+          this.loadMessages(payload.room_id);
+          payload = null as any;
+        },
+        error: (error) => {
+          console.error('Failed to send message:', error);
+        },
+      });
+    }
+
+  }
+  userTyping() {
+    this.echoService.listenToTyping(this.activeRoomId, (data) => {
+      if (data.userId !== this.user?.id) {
+        this.typingUser = data;
+
+        // Reset after a delay (e.g., 3s)
+        clearTimeout(this.typingTimeout);
+        this.typingTimeout = setTimeout(() => {
+          this.typingUser = null;
+        }, 3000);
       }
     });
   }

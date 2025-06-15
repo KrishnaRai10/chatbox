@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Message } from '../../models/message.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-message-list',
@@ -7,11 +8,20 @@ import { Message } from '../../models/message.model';
   templateUrl: './message-list.component.html',
   styleUrl: './message-list.component.scss'
 })
-export class MessageListComponent {
+export class MessageListComponent implements AfterViewChecked {
   @Input() messages: Message[] = [];
   @Input() currentUserId: string = '';
+  @Input() typingUser!: any | null;
+  constructor() {
+    console.log('MessageListComponent initialized', this.currentUserId, this.typingUser);
+  }
+  ngAfterViewChecked(): void {
+    if (this.typingUser) {
 
+      console.log('MessageListComponent initialized', this.currentUserId, this.typingUser);
+    }
+  }
   trackByMessageId(index: number, message: Message): string {
-    return message.id;
+    return message.id ?? '';
   }
 }

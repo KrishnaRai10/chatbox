@@ -213,6 +213,17 @@ select:focus {
     overflow: hidden;
 }
 
+.message-avatar {
+    margin-right: var(--space-3);
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
 /* Animation classes */
 .fade-in {
     animation: fadeIn 0.3s ease-in-out;

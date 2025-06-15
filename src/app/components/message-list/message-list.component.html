@@ -7,14 +7,16 @@
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
                 <h3>No messages yet</h3>
-                <p>Be the first to sta
-                    rt the conversation!</p>
+                <p>Be the first to start the conversation!</p>
             </div>
         </div>
 
         <div *ngIf="messages.length > 0">
             <app-message-item *ngFor="let message of messages; trackBy: trackByMessageId" [message]="message"
-                [isOwnMessage]="message.senderId === currentUserId"></app-message-item>
+                [isOwnMessage]="message.user_id === currentUserId"></app-message-item>
         </div>
+        <app-typing *ngIf="typingUser && typingUser.user_id !== currentUserId"
+            [senderAvatar]="typingUser.avatar"></app-typing>
+
     </div>
 </div>
