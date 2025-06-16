@@ -52,22 +52,30 @@ export class ChatComponent {
 
       if (!this.activeRoomId || !this.echoService.echo) return;
 
-      // 👇 Load messages
-      this.loadMessages(this.activeRoomId);
-
       // 👇 Listen to chat messages
       this.echoService.listenToChatChannel(this.activeRoomId, (message: Message) => {
-        this.messages.push({
-          user_id: message.user_id,
-          content: message.content,
-          type: message.type,
-          emotion: message.emotion,
-          created_at: message.created_at,
-          user_profile: message.user_profile
-        });
-
-        this.scrollToBottom();
+        const exists = this.messages.some(
+          (m) =>
+            m.created_at === message.created_at &&
+            m.user_id === message.user_id &&
+            m.content === message.content
+        );
+        console.log(message)
+        if (!exists) {
+          this.messages.push({
+            user_id: message.user_id,
+            content: message.content,
+            type: message.type,
+            emotion: message.emotion,
+            created_at: message.created_at,
+            user_profile: message.user_profile,
+            display_name: message.user_profile.display_name || message.user_profile.username
+          });
+          this.scrollToBottom();
+        }
       });
+      // 👇 Load messages
+      this.loadMessages(this.activeRoomId);
 
       // 👇 Listen to typing
       this.echoService.listenToTyping(this.activeRoomId, (data) => {
@@ -123,10 +131,11 @@ export class ChatComponent {
   loadMessages(roomId: string): void {
     this.chatService.getMessages(roomId).subscribe(newMessages => {
       const message = newMessages.slice().reverse();
+      this.messages = []
       this.messages.push(...message);
+      console.log(this.messages)
       setTimeout(() => this.scrollToBottom(), 0);
     });
-
   }
 
   selectRoom(roomId: string): void {

@@ -16,6 +16,7 @@ export interface Message {
 interface UserProfile {
     id: string;
     username: string;
+    display_name: string;
     email: string;
     avatar: string;
 }

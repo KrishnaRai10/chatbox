@@ -32,5 +32,4 @@ export class MessageItemComponent implements OnInit {
     }
     return 'neutral';
   }
-
 }

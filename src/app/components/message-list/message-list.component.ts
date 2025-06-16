@@ -13,12 +13,10 @@ export class MessageListComponent implements AfterViewChecked {
   @Input() currentUserId: string = '';
   @Input() typingUser!: any | null;
   constructor() {
-    console.log('MessageListComponent initialized', this.currentUserId, this.typingUser);
+
   }
   ngAfterViewChecked(): void {
     if (this.typingUser) {
-
-      console.log('MessageListComponent initialized', this.currentUserId, this.typingUser);
     }
   }
   trackByMessageId(index: number, message: Message): string {
