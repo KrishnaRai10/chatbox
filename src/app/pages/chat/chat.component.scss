@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .chat-main {
@@ -89,6 +90,18 @@
 .online-count {
     font-size: 0.75rem;
     color: var(--gray-500);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (min-width: 768px) {

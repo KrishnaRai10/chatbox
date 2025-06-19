@@ -60,7 +60,6 @@ export class ChatComponent {
             m.user_id === message.user_id &&
             m.content === message.content
         );
-        console.log(message)
         if (!exists) {
           this.messages.push({
             user_id: message.user_id,
@@ -71,7 +70,6 @@ export class ChatComponent {
             user_profile: message.user_profile,
             display_name: message.user_profile.display_name || message.user_profile.username
           });
-          this.scrollToBottom();
         }
       });
       // 👇 Load messages
@@ -81,8 +79,6 @@ export class ChatComponent {
       this.echoService.listenToTyping(this.activeRoomId, (data) => {
         if (data.userId !== this.user?.id) {
           this.typingUser = data;
-          console.log(this.typingUser)
-
           clearTimeout(this.typingTimeout);
           this.typingTimeout = setTimeout(() => {
             this.typingUser = null;
@@ -113,12 +109,14 @@ export class ChatComponent {
       // For example, update activeRoomId or perform other actions
       this.activeRoomName = res;
 
-    })
+    });
+    this.scrollToBottom()
   }
   scrollToBottom(): void {
     try {
       this.messageContainer.nativeElement.scrollTop =
         this.messageContainer.nativeElement.scrollHeight;
+      console.log("Scroll to bottom")
     } catch (err) {
       console.error('Error scrolling to bottom:', err);
     }
@@ -133,8 +131,8 @@ export class ChatComponent {
       const message = newMessages.slice().reverse();
       this.messages = []
       this.messages.push(...message);
-      console.log(this.messages)
-      setTimeout(() => this.scrollToBottom(), 0);
+
+      this.scrollToBottom();
     });
   }
 
@@ -162,6 +160,7 @@ export class ChatComponent {
       this.chatService.sendMessage(payload).subscribe({
         next: (message) => {
           this.loadMessages(payload.room_id);
+
           payload = null as any;
         },
         error: (error) => {

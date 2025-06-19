@@ -8,6 +8,7 @@ import {
 } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ChatService } from '../../services/chat.service';
+import { MainService } from '../../services/main.services';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ import { ChatService } from '../../services/chat.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit {
-  constructor(private dialog: MatDialog, private toastr: ToastrService, private chatService: ChatService) { }
+  constructor(private dialog: MatDialog, private toastr: ToastrService, private chatService: ChatService,private loadingService:MainService) { }
   @Input() rooms: ChatRoom[] = [];
   @Input() activeRoomId: string = '';
   @Input() currentUser: User | null = null;
@@ -55,12 +56,13 @@ export class SidebarComponent implements OnInit {
     })
   }
   getRooms() {
+     this.loadingService.handelLoader(true);
     this.chatService.getRooms().subscribe((res) => {
       this.rooms = res;
       if (this.rooms && this.rooms.length > 0) {
-        this.selectRoom(this.rooms[0].id, this.rooms[0].name)
-        this.setFirstActiveRoom(this.rooms)
-
+        this.selectRoom(this.rooms[0].id, this.rooms[0].name);
+        this.setFirstActiveRoom(this.rooms);
+        this.loadingService.handelLoader(false);
       }
     })
   }
